@@ -10,11 +10,11 @@ end
 
 Chatbot.command '!topic' do |message|
   puts 'topic message recieved'
-  if message.message.nil?
+  if message.body.nil?
     puts 'but its empty'
     nil
   else
     puts 'sending to gm'
-    "#{message.sender} set topic to  #{message.message}"
+    "#{message.sender} set topic to  #{message.body}"
   end
 end
