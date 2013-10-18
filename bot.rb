@@ -10,7 +10,7 @@ end
 
 Chatbot.command '!topic' do |message|
   puts 'topic message recieved'
-  if message.body.nil?
+  if message.body.empty?
     puts 'but its empty'
     nil
   else
