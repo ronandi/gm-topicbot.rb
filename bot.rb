@@ -12,6 +12,9 @@ Chatbot.command '!topic' do |message|
   if message.body.empty?
     nil
   else
+  if message.body.empty?
+    nil
+  else
     "#{message.sender} set topic to  #{message.body}"
   end
 end
