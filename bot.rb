@@ -9,9 +9,12 @@ post '/' do
 end
 
 Chatbot.command '!topic' do |message|
+  puts 'topic message recieved'
   if message.message.nil?
+    puts 'but its empty'
     nil
   else
+    puts 'sending to gm'
     "#{message.sender} set topic to  #{message.message}"
   end
 end
