@@ -9,6 +9,9 @@ post '/' do
 end
 
 Chatbot.command '!topic' do |message|
-  return nil if message.message.nil?
-  return "#{message.sender} set topic to  #{message.message}"
+  if message.message.nil?
+    nil
+  else
+    "#{message.sender} set topic to  #{message.message}"
+  end
 end
