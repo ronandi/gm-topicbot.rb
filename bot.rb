@@ -34,6 +34,7 @@ end
 
 def add_to_topic(message)
   last_topic = Topic.last
+  return if last_topic.nil?
   if last_topic.count(:comments) < TOPIC_SIZE
     message = Topic.messages.new(:sender => message.sender, :body => message.body)
     last_topic.save
