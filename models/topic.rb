@@ -1,4 +1,4 @@
-BASE_URI = "gm-topicbot-rb.herokuapp.com"
+BASE_URI = "topicbot.herokuapp.com"
 
 class Topic
   include DataMapper::Resource
