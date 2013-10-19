@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="page-header">
+    <h1><%= @topic.topic %></h1>
+    <p class="lead">Started by: <%= @topic.creator %>, on <%= @topic.created_at.strftime("%c") %></p>
+  </div>
+  <% @topic.messages.each do |message| %>
+    <p><strong><%= message.sender %></strong>: <%= message.body %></p>
+  <% end %>
+</div>
