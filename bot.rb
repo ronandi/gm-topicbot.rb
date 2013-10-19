@@ -3,6 +3,7 @@ require 'sinatra'
 require 'data_mapper'
 require './models/topic'
 require './models/message'
+require 'tzinfo'
 
 TOPIC_SIZE = 30
 DataMapper.setup(:default, ENV['DATABASE_URL'])
@@ -20,6 +21,8 @@ end
 
 get '/topic/:id' do
   @topic = Topic.get(params[:id])
+  tz = TZInfo::Timezone.get('America/New_York')
+  @time = tz.utc_to_local(@topic.created_at)
   erb :topic
 end
 
