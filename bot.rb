@@ -21,6 +21,7 @@ end
 
 get '/topic/:id' do
   @topic = Topic.get(params[:id])
+  return "Not Found" if @topic.nil?
   tz = TZInfo::Timezone.get('America/New_York')
   @time = tz.utc_to_local(@topic.created_at)
   erb :topic
