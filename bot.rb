@@ -31,7 +31,7 @@ Chatbot.command '!topic' do |message|
     nil
   else
     topic = Topic.create(:topic => message.body, :creator => message.sender)
-    "#{message.sender} set topic to  \"#{message.body}\". Archive: #{topic.url}"
+    "#{message.sender} set topic to \"#{message.body}\". (#{topic.url})"
   end
 end
 
