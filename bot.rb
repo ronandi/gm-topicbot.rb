@@ -26,6 +26,11 @@ post '/' do
   add_to_topic(message) unless message.is_command?
 end
 
+get '/' do
+  @topics = Topic.all
+  erb :index
+end
+
 get '/topic/:id' do
   @topic = Topic.get(params[:id])
   return "Not Found" if @topic.nil?

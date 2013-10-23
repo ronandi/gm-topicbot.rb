@@ -1,14 +1,18 @@
-<div id = "wrap">
+<div id="wrap">
   <div class="container">
     <div class="page-header">
-      <h1><%= @topic.topic %></h1>
-      <p class="lead">Started by: <%= @topic.creator %>, on <%= @time.strftime("%a %B, %Y | %l:%M%P") %></p>
+      <h1>Topic index</h1>
     </div>
-    <% @topic.messages.each do |message| %>
-      <p><strong><%= message.sender %></strong>: <%= message.body %></p>
-  <% end %>
+    <p class="lead">All the topics</p>
+    <ol>
+      <%= "<h2>There are no topics yet. Start one!</h2>" if @topics.empty? %>
+      <% @topics.each do |topic| %>
+        <li><a href=/topic/<%= topic.id %>><%= topic.topic %></a></li>
+      <% end %>
+    </ol>
   </div>
 </div>
+
 <div id="footer">
   <div class="container">
     <p class="text-muted credit"><a href="https://github.com/ronandi/gm-topicbot.rb">gm-topicbot.rb</a> created by <a href="https://github.com/ronandi/">Rohit Kumar</a>.</p>
