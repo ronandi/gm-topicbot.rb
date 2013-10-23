@@ -22,7 +22,7 @@ class Topic
   end
 
   def url_shortened_topic
-    self[:topic].gsub(URI.regexp) do |uri|
+    self[:topic].gsub(URI.regexp(['http','https'])) do |uri|
       if (uri.length > URL_LENGTH)
         linkify(Shorten.shorten_uri(uri))
       else
