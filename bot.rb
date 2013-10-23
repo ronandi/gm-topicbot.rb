@@ -35,7 +35,7 @@ get '/topic/:id' do
 end
 
 Chatbot.command '!topic' do |message|
-  logger.info 'Topic command recieved'
+  logger.debug 'Topic command recieved'
   if message.body.empty?
     nil
   else
