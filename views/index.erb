@@ -7,7 +7,7 @@
     <ol>
       <%= "<h2>There are no topics yet. Start one!</h2>" if @topics.empty? %>
       <% @topics.each do |topic| %>
-        <li><a href=/topic/<%= topic.id %>><%= topic.topic %></a></li>
+        <li><a href=/topic/<%= topic.id %>><%= topic.shortened_topic %></a></li>
       <% end %>
     </ol>
   </div>
