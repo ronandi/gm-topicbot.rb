@@ -1,5 +1,5 @@
 require 'uri'
-require '../lib/shorten'
+require_relative '../lib/shorten'
 BASE_URI = "topicbot.herokuapp.com"
 TOPIC_CHARS = 160
 URL_LENGTH = 65
