@@ -32,7 +32,11 @@ Chatbot.command '!topic' do |message|
     nil
   else
     topic = Topic.create(:topic => message.body, :creator => message.sender)
-    "#{message.sender} set topic to \"#{message.body}\". (#{topic.url})"
+    unless topic.saved?
+      puts "ERROR RECORD NOT SAVED"
+      topic.save
+    end
+    "#{message.sender} set topic to \"#{message.body}\". #{topic.url}"
   end
 end
 
