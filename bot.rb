@@ -6,7 +6,7 @@ require './models/message'
 require 'tzinfo'
 require 'logger'
 
-enable :logging
+logger = Logger.new(STDOUT)
 
 before do
     logger.level = Logger::DEBUG
