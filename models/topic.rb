@@ -1,5 +1,8 @@
+require 'uri'
+require '../lib/shorten'
 BASE_URI = "topicbot.herokuapp.com"
 TOPIC_CHARS = 160
+URL_LENGTH = 65
 
 class Topic
   include DataMapper::Resource
@@ -16,5 +19,15 @@ class Topic
 
   def shortened_topic
     self[:topic].length < TOPIC_CHARS ? self[:topic] : self[:topic].slice(0, TOPIC_CHARS).concat('...')
+  end
+
+  def url_shortened_topic
+    self[:topic].gsub(URI.regexp) do |uri|
+      if (uri.length > URL_LENGTH)
+        Shorten.shorten_uri(uri)
+      else
+        uri
+      end
+    end
   end
 end
