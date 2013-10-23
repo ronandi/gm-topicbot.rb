@@ -36,6 +36,7 @@ Chatbot.command '!topic' do |message|
       puts "ERROR RECORD NOT SAVED"
       topic.save
     end
+    puts "NIL ID WTF?" if topic.id.nil?
     "#{message.sender} set topic to \"#{message.body}\". #{topic.url}"
   end
 end
