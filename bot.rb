@@ -8,6 +8,10 @@ require 'logger'
 
 logger = Logger.new(STDOUT)
 
+use Rack::Auth::Basic, "Not Found" do |username, password|
+  username == ENV['TOPICBOT_USER'] and password == ENV['TOPICBOT_PASSWORD']
+end
+
 before do
     logger.level = Logger::DEBUG
 end
