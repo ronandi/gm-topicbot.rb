@@ -8,12 +8,21 @@ require 'logger'
 
 logger = Logger.new(STDOUT)
 
-use Rack::Auth::Basic, "Not Found" do |username, password|
-  username == ENV['TOPICBOT_USER'] and password == ENV['TOPICBOT_PASSWORD']
+before do
+  logger.level = Logger::DEBUG
 end
 
-before do
-    logger.level = Logger::DEBUG
+helpers do
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == [ENV['TOPICBOT_USER'], ENV['TOPICBOT_PASSWORD']]
+  end
 end
 
 TOPIC_SIZE = 30
@@ -31,11 +40,13 @@ post '/' do
 end
 
 get '/' do
+  protected!
   @topics = Topic.all
   erb :index
 end
 
 get '/topic/:id' do
+  protected!
   @topic = Topic.get(params[:id])
   return "Not Found" if @topic.nil?
   tz = TZInfo::Timezone.get('America/New_York')
@@ -50,7 +61,7 @@ Chatbot.command '!topic' do |message|
   else
     topic = Topic.create(:topic => message.body, :creator => message.sender)
     unless topic.saved?
-    logger.debug 'RECORD NOT SAVED'
+      logger.debug 'RECORD NOT SAVED'
       topic.save
     end
     logger.debug 'NIL ID WTF' if topic.id.nil?
