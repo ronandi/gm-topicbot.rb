@@ -4,6 +4,13 @@ require 'data_mapper'
 require './models/topic'
 require './models/message'
 require 'tzinfo'
+require 'logger'
+
+enable :logging
+
+before do
+    logger.level = Logger::DEBUG
+end
 
 TOPIC_SIZE = 30
 DataMapper.setup(:default, ENV['DATABASE_URL'])
@@ -28,15 +35,16 @@ get '/topic/:id' do
 end
 
 Chatbot.command '!topic' do |message|
+  logger.info 'Topic command recieved'
   if message.body.empty?
     nil
   else
     topic = Topic.create(:topic => message.body, :creator => message.sender)
     unless topic.saved?
-      puts "ERROR RECORD NOT SAVED"
+    logger.debug 'RECORD NOT SAVED'
       topic.save
     end
-    puts "NIL ID WTF?" if topic.id.nil?
+    logger.debug 'NIL ID WTF' if topic.id.nil?
     "#{message.sender} set topic to \"#{message.body}\". #{topic.url}"
   end
 end
