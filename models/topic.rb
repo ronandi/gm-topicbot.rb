@@ -24,10 +24,14 @@ class Topic
   def url_shortened_topic
     self[:topic].gsub(URI.regexp) do |uri|
       if (uri.length > URL_LENGTH)
-        Shorten.shorten_uri(uri)
+        linkify(Shorten.shorten_uri(uri))
       else
-        uri
+        linkify(uri)
       end
     end
+  end
+
+  def linkify(uri)
+    return "<a href=#{uri}>#{uri}</a>"
   end
 end
