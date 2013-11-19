@@ -40,7 +40,6 @@ d3.csv("piedata.csv", function(error, data) {
   .attr("dy", ".35em")
   .style("text-anchor", "middle")
   .text(function(d) { 
-    console.log(d.data.posts/total);
     if ((d.data.posts / total)> 0.039)
       return d.data.user; 
     else return '';
