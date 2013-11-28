@@ -45,6 +45,11 @@ get '/' do
   erb :index
 end
 
+get '/stats' do
+  protected!
+  File.new('private/stats.html').readlines
+end
+
 get '/topic/:id' do
   protected!
   @topic = Topic.get(params[:id])
